@@ -1,26 +1,22 @@
 var Templater = {
+	tags: {},
+	addTag: function(tagName, template) {
+		this.tags[tagName] = template;
+	},
 	run: function() {
-		let elem = document.getElementsByTagName('bootstrap_button');
-		let length = elem.length;
-		if (!length) {
-			return;
-		}
-
-		for(let i = 0; i < length; i++) {
-			let element = elem[0];
-			let elementContent = element.innerHTML;
-			let newElem = document.createElement('button');
-
-			newElem.setAttribute('type', 'submit');
-			newElem.classList.add('btn', 'btn-default');
-			if (elementContent.replace(/\s/g, '').length) {
-				newElem.innerHTML = elementContent;
-			} else {
-				newElem.innerHTML = 'Some Text';
+		for(var customTag in this.tags) {
+			let elements = document.getElementsByTagName(customTag);
+			let length = elements.length;
+			if (!length) {
+				continue;
 			}
 
-			element.parentNode.replaceChild(newElem, element);
-		}
+			for(let i = 0; i < length; i++) {
+				let element = elements[0];
+				element.outerHTML = this.tags[customTag];
+
+			}
+		};
 	}
 
 }
