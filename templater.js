@@ -1,6 +1,5 @@
-var Templater = {
-	tags: {},
-	render: function(template, element) {
+;(function($) {
+	function render(template, element) {
 		return template.replace(/{{(.*?)}}/g, function(match, template) {
 			if(template === 'html') {
 				return element.innerHTML;
@@ -8,21 +7,28 @@ var Templater = {
 				return element.getAttribute(template);
 			}
 		});
-	},
-	addTag: function(tagName, template) {
-		this.tags[tagName] = template;
-	},
-	run: function() {
-		for(let customTag in this.tags) {
-			let elements = Array.from(document.getElementsByTagName(customTag));
-			let length = elements.length;
-			if (!length) {
-				return;
-			}
+	};
 
-			elements.forEach((element) => {
-				element.outerHTML = this.render(this.tags[customTag], element);
-			});
-		};
-	}
-}
+	function run($elements, tag, template) {
+		$elements.each(function(index, element) {
+			element.outerHTML = render(template, element);
+		});
+	};
+
+	function findElement($el, tags) {
+		Object.keys(tags).map(function(customTag){
+			let $elements = $el.find(customTag);
+			let length = $elements.length;
+			if (length) {
+				run($elements, customTag, tags[customTag]);
+			}
+		});
+	};
+
+	$.fn.templater = function(opt) {
+		return this.each(function(index, el){
+			let $el = $(el);
+			findElement($el, opt.tags);
+		});
+	};
+}(jQuery));
