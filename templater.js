@@ -10,7 +10,7 @@
 	}
 
 	function run($element, tag, template) {
-    let $elements = $element.find(tag),
+    var $elements = $element.find(tag),
         element;
       
     if(!$elements.length) {
@@ -33,7 +33,7 @@
 
 	$.fn.templater = function(opt) {
 		return this.each(function(index, el){
-			let $el = $(el);
+			var $el = $(el);
 			findElement($el, opt.tags);
 		});
 	}

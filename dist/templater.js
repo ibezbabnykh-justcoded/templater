@@ -1,0 +1,1 @@
+!function(r){function u(t,e){Object.keys(e).map(function(n){e.hasOwnProperty(n)&&function n(t,e,r){var u,i,c=t.find(e);c.length&&((u=c[0]).outerHTML=(i=u,r.replace(/{{(.*?)}}/g,function(n,t){return"html"===t?i.innerHTML:i.getAttribute(t)})),n(t,e,r))}(t,n,e[n])})}r.fn.templater=function(e){return this.each(function(n,t){u(r(t),e.tags)})}}(jQuery);

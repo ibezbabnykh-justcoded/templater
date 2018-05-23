@@ -1,0 +1,6 @@
+.DS_Store
+bower_components
+node_modules
+src/templater.js
+src/node_modules
+.idea
